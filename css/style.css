@@ -1,0 +1,947 @@
+/* ============================================================
+   CraftGuide -- style.css
+   All design tokens from DESIGN.md Appendix B.
+   Zero border-radius. Beveled borders only. No box-shadows.
+   Press Start 2P everywhere. Minecraft text shadows on all text.
+   ============================================================ */
+
+/* === FONT === */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* === CSS CUSTOM PROPERTIES -- all from DESIGN.md Appendix B === */
+:root {
+  /* Typography */
+  --font-family-primary: 'Press Start 2P', 'Silkscreen', 'Courier New', monospace;
+  --font-size-display: 32px;
+  --font-size-h1: 24px;
+  --font-size-h2: 16px;
+  --font-size-h3: 12px;
+  --font-size-body: 10px;
+  --font-size-small: 8px;
+  --font-size-xs: 8px;
+
+  /* Primary -- Stone & Earth */
+  --color-primary: #8B8B8B;
+  --color-primary-light: #A0A0A0;
+  --color-primary-dark: #6B6B6B;
+  --color-primary-50: #C6C6C6;
+  --color-primary-100: #B0B0B0;
+
+  /* Secondary -- Gold */
+  --color-secondary: #FFAA00;
+  --color-secondary-light: #FFCC44;
+  --color-secondary-dark: #CC8800;
+
+  /* Accents */
+  --color-accent-xp: #55FF55;
+  --color-accent-redstone: #FF0000;
+  --color-accent-redstone-dark: #A81414;
+  --color-accent-sky: #7BA4DB;
+  --color-accent-water: rgba(40, 100, 200, 0.5);
+
+  /* Earth Tones */
+  --color-earth-dirt: #866043;
+  --color-earth-dirt-dark: #6B4E30;
+  --color-earth-dirt-darker: #3C2415;
+  --color-earth-oak: #BC9862;
+  --color-earth-spruce: #6B4E30;
+  --color-earth-grass: #6B8E23;
+
+  /* Neutrals -- Cobblestone Scale */
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-50: #F0F0F0;
+  --color-neutral-100: #D8D8D8;
+  --color-neutral-200: #B0B0B0;
+  --color-neutral-300: #8B8B8B;
+  --color-neutral-400: #7A7A7A;
+  --color-neutral-500: #6B6B6B;
+  --color-neutral-600: #555555;
+  --color-neutral-700: #3A3A3A;
+  --color-neutral-800: #2A2A2A;
+  --color-neutral-900: #1A1A1A;
+
+  /* Semantic */
+  --color-success: #55FF55;
+  --color-success-light: #2D4A2D;
+  --color-warning: #FFAA00;
+  --color-warning-light: #4A3D1A;
+  --color-error: #FF0000;
+  --color-error-light: #4A1A1A;
+  --color-info: #7BA4DB;
+  --color-info-light: #1A2A4A;
+
+  /* Surfaces */
+  --color-bg-base: #3C2415;
+  --color-bg-surface: #4A3A2A;
+  --color-bg-surface-stone: #555555;
+  --color-bg-elevated: #6B6B6B;
+  --color-bg-inventory: #8B8B8B;
+  --color-bg-overlay: rgba(0, 0, 0, 0.75);
+  --color-bg-slot: #555555;
+  --color-bg-slot-hover: #6B6B6B;
+  --color-bg-slot-selected: #3A5A3A;
+
+  /* Text */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #AAAAAA;
+  --color-text-gold: #FFAA00;
+  --color-text-green: #55FF55;
+  --color-text-red: #FF5555;
+  --color-text-aqua: #55FFFF;
+  --color-text-shadow: #3F3F3F;
+
+  /* Text Shadows */
+  --text-shadow-default: 2px 2px 0px #3F3F3F;
+  --text-shadow-gold: 2px 2px 0px #3F2A00;
+  --text-shadow-green: 2px 2px 0px #153F15;
+  --text-shadow-red: 2px 2px 0px #3F1515;
+  --text-shadow-aqua: 2px 2px 0px #153F3F;
+
+  /* Borders */
+  --border-width-default: 2px;
+  --border-width-thin: 1px;
+  --border-width-thick: 3px;
+  --border-color-highlight: #A0A0A0;
+  --border-color-shadow: #555555;
+  --border-color-panel: #3A3A3A;
+  --border-color-dark: #1A1A1A;
+  --border-color-gold: #FFAA00;
+  --border-color-tooltip: #5000A0;
+
+  /* Spacing */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 48px;
+  --space-12: 64px;
+
+  /* Radius -- the entire radius system */
+  --radius-none: 0px;
+
+  /* Sizing */
+  --inventory-cell-size: 48px;
+  --inventory-swatch-size: 32px;
+  --inventory-columns: 9;
+  --slider-track-height: 8px;
+  --slider-thumb-size: 20px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radius-none) !important; /* DESIGN.md: zero border-radius, no exceptions */
+}
+
+html {
+  scroll-behavior: auto; /* No smooth scroll -- pixel UI is snappy */
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  text-shadow: var(--text-shadow-default);
+  /* Pixel-perfect text rendering */
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  image-rendering: pixelated;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* All transitions OFF except 3D viewer -- per DESIGN.md */
+* {
+  transition: none !important;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header {
+  background-color: var(--color-bg-surface);
+  border-bottom: var(--border-width-default) solid var(--border-color-panel);
+  border-top: var(--border-width-default) solid var(--border-color-highlight);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.site-logo {
+  margin-bottom: var(--space-3);
+}
+
+.logo-text {
+  font-size: var(--font-size-display);
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  display: block;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+}
+
+.header-tagline {
+  font-size: var(--font-size-h3);
+  color: var(--color-text-secondary);
+  text-shadow: var(--text-shadow-default);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   BUTTONS -- Minecraft Stone Button (from DESIGN.md)
+   ============================================================ */
+.mc-button {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-default);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  padding: var(--space-3) var(--space-5);
+  border: none;
+  border-top: var(--border-width-default) solid var(--border-color-highlight);
+  border-left: var(--border-width-default) solid var(--border-color-highlight);
+  border-bottom: var(--border-width-default) solid var(--border-color-shadow);
+  border-right: var(--border-width-default) solid var(--border-color-shadow);
+  cursor: pointer;
+  image-rendering: pixelated;
+  display: inline-block;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mc-button:hover {
+  background-color: #9A9A9A;
+  border-top-color: var(--color-primary-100);
+  border-left-color: var(--color-primary-100);
+}
+
+.mc-button:active {
+  background-color: var(--color-primary-dark);
+  border-top: var(--border-width-default) solid var(--border-color-shadow);
+  border-left: var(--border-width-default) solid var(--border-color-shadow);
+  border-bottom: var(--border-width-default) solid var(--border-color-highlight);
+  border-right: var(--border-width-default) solid var(--border-color-highlight);
+}
+
+.mc-button:focus {
+  outline: var(--border-width-thick) solid var(--border-color-gold);
+}
+
+/* ============================================================
+   TABS -- Creative Inventory Style (from DESIGN.md)
+   ============================================================ */
+.category-tabs,
+.tab-nav {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.mc-tab {
+  background-color: var(--color-bg-surface-stone);
+  color: var(--color-text-secondary);
+  text-shadow: var(--text-shadow-default);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-small);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width-default) solid var(--border-color-panel);
+  border-bottom: none;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
+  white-space: nowrap;
+}
+
+.mc-tab:hover {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.mc-tab.active {
+  background-color: var(--color-bg-inventory);
+  color: var(--color-text-primary);
+  border-top-color: var(--border-color-highlight);
+  border-left-color: var(--border-color-highlight);
+  top: -2px;
+  padding-bottom: calc(var(--space-3) + 4px);
+}
+
+/* ============================================================
+   HOME PAGE -- CATEGORY NAV + GRID
+   ============================================================ */
+.home-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-5);
+  width: 100%;
+  flex: 1;
+}
+
+.category-tabs {
+  border-bottom: var(--border-width-default) solid var(--border-color-panel);
+  margin-bottom: var(--space-5);
+  padding-bottom: 0;
+}
+
+/* ============================================================
+   BUILD CARDS GRID
+   ============================================================ */
+.builds-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+/* Build Card -- Dirt Panel variant per DESIGN.md */
+.build-card {
+  background-color: var(--color-bg-surface);
+  border: var(--border-width-default) solid var(--border-color-panel);
+  border-top-color: #5A4A3A; /* inset highlight top/left */
+  border-left-color: #5A4A3A;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.build-card:hover {
+  background-color: #52423A;
+  border-top-color: #6A5A4A;
+  border-left-color: #6A5A4A;
+}
+
+.card-preview-wrap {
+  background-color: var(--color-info-light);
+  border-bottom: var(--border-width-default) solid var(--border-color-panel);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.card-body {
+  padding: var(--space-3);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: var(--font-size-small);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-default);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+/* Category Badges */
+.category-badge {
+  font-size: var(--font-size-xs);
+  padding: 2px var(--space-2);
+  border: var(--border-width-thin) solid;
+}
+
+.category-castle {
+  background-color: #2D2D4A;
+  border-color: #4A4A8B;
+  color: var(--color-accent-sky);
+  text-shadow: var(--text-shadow-aqua);
+}
+
+.category-vehicle {
+  background-color: #2D3A2D;
+  border-color: #4A8B4A;
+  color: var(--color-accent-xp);
+  text-shadow: var(--text-shadow-green);
+}
+
+.category-redstone {
+  background-color: #3A2D2D;
+  border-color: #8B4A4A;
+  color: var(--color-text-red);
+  text-shadow: var(--text-shadow-red);
+}
+
+.difficulty {
+  font-size: 12px;
+  letter-spacing: -1px;
+}
+
+.block-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Favorite Button */
+.fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--color-neutral-600);
+  text-shadow: none;
+  padding: var(--space-1);
+  line-height: 1;
+  font-family: var(--font-family-primary);
+}
+
+.fav-btn.favored {
+  color: var(--color-text-red);
+  text-shadow: var(--text-shadow-red);
+}
+
+.fav-btn:hover {
+  color: var(--color-text-red);
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-12) var(--space-5);
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: var(--color-neutral-600);
+  margin-bottom: var(--space-5);
+}
+
+.empty-text {
+  font-size: var(--font-size-h2);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.empty-sub {
+  font-size: var(--font-size-body);
+  color: var(--color-neutral-500);
+}
+
+/* ============================================================
+   DETAIL PAGE
+   ============================================================ */
+.page-detail {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.detail-header {
+  background-color: var(--color-bg-surface);
+  border-bottom: var(--border-width-default) solid var(--border-color-panel);
+  border-top: var(--border-width-default) solid var(--border-color-highlight);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.back-btn {
+  flex-shrink: 0;
+  font-size: var(--font-size-small);
+}
+
+.detail-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-title {
+  font-size: var(--font-size-h2);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-default);
+  margin-bottom: var(--space-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detail-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.detail-fav {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.detail-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ============================================================
+   VIEWER PANEL (left 60%)
+   ============================================================ */
+.viewer-panel {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-neutral-900);
+  border-right: var(--border-width-default) solid var(--border-color-panel);
+}
+
+.viewer-container {
+  flex: 1;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.viewer-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.layer-controls {
+  background-color: var(--color-bg-surface);
+  border-top: var(--border-width-default) solid var(--border-color-panel);
+  padding: var(--space-4);
+}
+
+.layer-label {
+  font-size: var(--font-size-small);
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+
+.layer-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+/* Layer Slider -- from DESIGN.md spec */
+.layer-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--slider-track-height);
+  background: var(--color-bg-surface-stone);
+  border: var(--border-width-thin) solid var(--border-color-panel);
+  outline: none;
+  cursor: pointer;
+}
+
+.layer-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  background: var(--color-secondary);
+  border-top: var(--border-width-default) solid var(--color-secondary-light);
+  border-left: var(--border-width-default) solid var(--color-secondary-light);
+  border-bottom: var(--border-width-default) solid var(--color-secondary-dark);
+  border-right: var(--border-width-default) solid var(--color-secondary-dark);
+  cursor: pointer;
+}
+
+.layer-slider::-moz-range-thumb {
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  background: var(--color-secondary);
+  border-top: var(--border-width-default) solid var(--color-secondary-light);
+  border-left: var(--border-width-default) solid var(--color-secondary-light);
+  border-bottom: var(--border-width-default) solid var(--color-secondary-dark);
+  border-right: var(--border-width-default) solid var(--color-secondary-dark);
+  cursor: pointer;
+}
+
+.layer-slider:focus {
+  outline: var(--border-width-thick) solid var(--border-color-gold);
+}
+
+.reset-view-btn {
+  margin: var(--space-3) var(--space-4) var(--space-4);
+  font-size: var(--font-size-xs);
+  align-self: flex-start;
+}
+
+/* ============================================================
+   INFO PANEL (right 40%)
+   ============================================================ */
+.info-panel {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-surface);
+  overflow: hidden;
+}
+
+.tab-nav {
+  background-color: var(--color-bg-elevated);
+  border-bottom: var(--border-width-default) solid var(--border-color-panel);
+  padding: var(--space-3) var(--space-3) 0;
+}
+
+.tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-600) var(--color-bg-surface);
+}
+
+.tab-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-600);
+  border: var(--border-width-thin) solid var(--border-color-panel);
+}
+
+/* ============================================================
+   INSTRUCTIONS TAB
+   ============================================================ */
+.build-description {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: var(--border-width-thin) solid var(--border-color-panel);
+}
+
+.layer-list-header {
+  font-size: var(--font-size-h3);
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  margin-bottom: var(--space-4);
+}
+
+.layer-item {
+  background-color: var(--color-bg-surface-stone);
+  border: var(--border-width-thin) solid var(--border-color-panel);
+  border-top-color: var(--border-color-highlight);
+  border-left-color: var(--border-color-highlight);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.layer-num {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  white-space: nowrap;
+}
+
+.layer-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.layer-total {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-green);
+  text-shadow: var(--text-shadow-green);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   MATERIALS TAB -- Inventory Grid (from DESIGN.md)
+   ============================================================ */
+.materials-header {
+  font-size: var(--font-size-small);
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  margin-bottom: var(--space-4);
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(9, var(--inventory-cell-size));
+  gap: var(--space-1);
+  background: var(--color-bg-inventory);
+  padding: var(--space-2);
+  border: var(--border-width-default) solid var(--border-color-shadow);
+  border-top-color: var(--border-color-highlight);
+  border-left-color: var(--border-color-highlight);
+  overflow-x: auto;
+}
+
+.inventory-slot {
+  width: var(--inventory-cell-size);
+  height: var(--inventory-cell-size);
+  background: var(--color-bg-slot);
+  border: var(--border-width-thin) solid var(--border-color-panel);
+  border-bottom-color: var(--border-color-highlight);
+  border-right-color: var(--border-color-highlight);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.inventory-slot:not(.empty):hover {
+  background: var(--color-bg-slot-hover);
+}
+
+.inventory-slot:not(.empty):hover .slot-tooltip {
+  display: block;
+}
+
+.inventory-slot.empty {
+  background: var(--color-bg-slot);
+  opacity: 0.5;
+}
+
+.block-swatch {
+  width: var(--inventory-swatch-size);
+  height: var(--inventory-swatch-size);
+  image-rendering: pixelated;
+  border: var(--border-width-thin) solid rgba(0,0,0,0.4);
+}
+
+.inventory-slot .count {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-default);
+  line-height: 1;
+}
+
+/* Minecraft-style tooltip -- purple border per DESIGN.md */
+.slot-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #100010;
+  border: var(--border-width-default) solid var(--border-color-tooltip);
+  padding: var(--space-2) var(--space-3);
+  z-index: 100;
+  min-width: 120px;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ============================================================
+   TIPS TAB
+   ============================================================ */
+.tips-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tip-item {
+  background-color: var(--color-bg-surface-stone);
+  border: var(--border-width-thin) solid var(--border-color-panel);
+  border-top-color: var(--border-color-highlight);
+  border-left-color: var(--border-color-highlight);
+  padding: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.tip-icon {
+  color: var(--color-text-gold);
+  text-shadow: var(--text-shadow-gold);
+  font-size: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tip-text {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+/* ============================================================
+   PANELS -- mc-panel utility class
+   ============================================================ */
+.mc-panel {
+  background-color: var(--color-bg-surface-stone);
+  border: var(--border-width-default) solid var(--border-color-panel);
+  border-top-color: var(--border-color-highlight);
+  border-left-color: var(--border-color-highlight);
+  padding: var(--space-4);
+}
+
+/* ============================================================
+   RESPONSIVE -- 768px breakpoint (mobile)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .builds-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: var(--font-size-h1);
+  }
+
+  .builds-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .detail-body {
+    flex-direction: column;
+  }
+
+  .viewer-panel {
+    flex: none;
+    width: 100%;
+  }
+
+  .viewer-container {
+    min-height: 300px;
+    height: 50vw;
+    max-height: 400px;
+  }
+
+  .info-panel {
+    flex: none;
+    width: 100%;
+    max-height: 60vh;
+    overflow: hidden;
+  }
+
+  .inventory-grid {
+    grid-template-columns: repeat(9, 40px);
+    overflow-x: auto;
+  }
+
+  .inventory-slot {
+    width: 40px;
+    height: 40px;
+  }
+
+  .detail-title {
+    font-size: var(--font-size-h3);
+  }
+
+  .layer-item {
+    grid-template-columns: 64px 1fr auto;
+    gap: var(--space-2);
+  }
+
+  .mc-tab {
+    font-size: 7px;
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-main {
+    padding: var(--space-3);
+  }
+
+  .builds-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .logo-text {
+    font-size: var(--font-size-h2);
+  }
+
+  .detail-header {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .detail-title {
+    font-size: var(--font-size-small);
+  }
+}
+
+/* ============================================================
+   SCROLLBAR STYLING (webkit)
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-600);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-bg-surface);
+}

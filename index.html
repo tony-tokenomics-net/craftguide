@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CraftGuide -- Your Minecraft Build Companion. Interactive 3D block viewer, layer-by-layer instructions, and materials lists for 10 epic builds.">
+  <title>CraftGuide -- Your Minecraft Build Companion</title>
+
+  <!-- Google Fonts: Press Start 2P -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- CraftGuide Design System -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Loading screen styles (inline -- shows before external CSS if fonts are slow) -->
+  <style>
+    .init-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #3C2415;
+      text-align: center;
+      gap: 16px;
+    }
+    .loading-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 16px;
+      color: #FFAA00;
+      text-shadow: 2px 2px 0px #3F2A00;
+    }
+    .loading-sub {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: #AAAAAA;
+      text-shadow: 2px 2px 0px #3F3F3F;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App root -->
+  <div id="app">
+    <div class="init-loading">
+      <div class="loading-text">CraftGuide</div>
+      <div class="loading-sub">Loading builds...</div>
+    </div>
+  </div>
+
+  <!-- === DEPENDENCIES === -->
+  <!-- Three.js UMD build -- works from file://, no CORS issues -->
+  <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+  <!-- OrbitControls UMD -- attaches to THREE.OrbitControls -->
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <!-- === BUILD DATA === -->
+  <!-- index.js must load first -- sets up CraftGuide namespace and registerBuild() -->
+  <script src="js/builds/index.js"></script>
+  <script src="js/builds/watchtower.js"></script>
+  <script src="js/builds/castle-gate.js"></script>
+  <script src="js/builds/fortress.js"></script>
+  <script src="js/builds/wizard-tower.js"></script>
+  <script src="js/builds/pirate-ship.js"></script>
+  <script src="js/builds/fighter-jet.js"></script>
+  <script src="js/builds/tank.js"></script>
+  <script src="js/builds/piston-door.js"></script>
+  <script src="js/builds/chicken-farm.js"></script>
+  <script src="js/builds/tnt-cannon.js"></script>
+
+  <!-- === VIEWER === -->
+  <script src="js/viewer.js"></script>
+
+  <!-- === APP === -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
